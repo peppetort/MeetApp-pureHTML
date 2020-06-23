@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registry</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/standard.css"/>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <div class="grid-header">
+        <h1 th:text="${meeting.title}">
+            Title
+        </h1>
+
+        <nav>
+            <div class="navProfile" th:with="user=${#session.getAttribute('user')}">
+                <img src="../IMAGES/user.png"/>
+                <p th:text="${user.name}+' '+${user.surname}">Nome Cognome</p>
+            </div>
+
+            <div class="navRight">
+                <a href="/GetHome">
+                    <img src="../IMAGES/home.png"/>
+                </a>
+                <a href="/Logout">
+                    <img src="../IMAGES/logout.png"/>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="grid-main">
+
+        <section class="warning" th:if="${difference != null}">
+            <h2>Warning</h2>
+            <div th:if="${difference > 0}">
+                <p>Remove </p>
+                <p th:text="${difference}">10</p>
+                <p>participants</p>
+            </div>
+            <div th:if="${difference < 0}">
+                <p>Select at least 1 participants</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Users</h2>
+            </div>
+            <form class="user-form" method="POST" action="/AddParticipants">
+                <div class="section-container">
+                    <div class="user-selection" th:each="user: ${users}">
+                        <h3 th:text="${user.name}+' '+${user.surname}">Name Surname</h3>
+                        <input th:if="${selected != null && #lists.contains(selected, user.id)}" type="checkbox"
+                               name="checked" th:value="${user.id}" checked>
+                        <input th:if="${selected == null || (selected != null && not #lists.contains(selected, user.id))}" type="checkbox" name="checked" th:value="${user.id}">
+                    </div>
+
+                </div>
+                <div class="section-footer">
+                    <input type="submit" value="Add">
+                </div>
+            </form>
+        </section>
+
+    </div>
+
+    <div class="grid-footer">
+        <footer>
+            (c) Web Technologies 2019-2020 Tortorelli
+        </footer>
+    </div>
+
+</div>
+</body>
+
+</html>

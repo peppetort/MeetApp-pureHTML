@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="CSS/standard.css"/>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <div class="grid-header">
+        <h1>
+            Welcome to Meeting App
+        </h1>
+
+        <nav></nav>
+    </div>
+
+    <div class="grid-main">
+
+        <section>
+            <div class="section-container index">
+                <p class="error" th:if="${error != null}" th:text="${error}" ></p>
+
+                <p>Login</p>
+                <form method="POST" action="/Login">
+                    <input type="text" name="username" placeholder="Username" required/><br/>
+                    <input type="password" name="password" placeholder="Password" required/><br/>
+                    <input type="submit" name="submit_login" value="Login"/>
+                </form>
+
+
+                <p>Registration</p>
+                <form method="POST" action="/Registration">
+                    <input type="text" name="name" placeholder="Name" required><br/>
+                    <input type="text" name="surname" placeholder="Surname" required><br/>
+                    <input type="text" name="username" placeholder="Username" required><br/>
+                    <input type="email" name="email" placeholder="Email" required><br/>
+                    <input type="password" name="password1" placeholder="Password" required><br/>
+                    <input type="password" name="password2" placeholder="Repeat Password" required><br/>
+                    <input type="submit" name="submit_registration" value="Sing up">
+                </form>
+            </div>
+        </section>
+
+
+    </div>
+
+    <div class="grid-footer">
+        <footer>
+            (c) Web Technologies 2019-2020 Tortorelli
+        </footer>
+    </div>
+
+</div>
+</body>
+
+</html>

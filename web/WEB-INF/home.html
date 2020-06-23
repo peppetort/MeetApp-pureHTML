@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/standard.css"/>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <div class="grid-header">
+        <h1>Home</h1>
+
+        <nav>
+            <div class="navProfile" th:with="user=${#session.getAttribute('user')}">
+                <img src="../IMAGES/user.png"/>
+                <p th:text="${user.name}+' '+${user.surname}">Nome Cognome</p>
+            </div>
+
+            <div class="navRight">
+                <a href="/Logout">
+                    <img src="../IMAGES/logout.png"/>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="grid-main">
+
+        <section>
+            <div class="section-header">
+                <h2>Your Meetings</h2>
+            </div>
+            <div class="section-container" th:if="${#lists.isEmpty(myMeetings)}">
+                <p>You have not created any meeting</p>
+            </div>
+            <div class="section-container" th:if="${not #lists.isEmpty(myMeetings)}">
+                <div th:each="meeting: ${myMeetings}">
+                    <h3 th:text="${meeting.title}">Title</h3>
+                    <p th:text="'Date: ' + ${meeting.meetingDate}">01/01/2001</p>
+                    <p th:text="${'Time: ' + #strings.substring(meeting.startTime.toString(), 0, #strings.length(meeting.startTime)-3)} + ' - ' + ${#strings.substring(meeting.endTime.toString(), 0, #strings.length(meeting.endTime)-3)}">
+                        Time: 14:00 - 18:00</p>
+                    <hr>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Invitations</h2>
+            </div>
+            <div class="section-container" th:if="${#lists.isEmpty(invitations)}">
+                <p>You have not invitations</p>
+            </div>
+            <div class="section-container" th:if="${not #lists.isEmpty(invitations)}">
+                <div th:each="meeting: ${invitations}">
+                    <h3 th:text="${meeting.title}">Title</h3>
+                    <p th:text="'Date: ' + ${meeting.meetingDate}">01/01/2001</p>
+                    <p th:text="${'Time: ' + #strings.substring(meeting.startTime.toString(), 0, #strings.length(meeting.startTime)-3)} + ' - ' + ${#strings.substring(meeting.endTime.toString(), 0, #strings.length(meeting.endTime)-3)}">
+                        Time: 14:00 - 18:00</p>
+                    <hr>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Create new meeting</h2>
+                <p class="error" th:if="${error != null}" th:text="${error}" >Error Message</p>
+            </div>
+            <div class="section-container">
+                <form method="POST" action="/CreateMeeting">
+                    <input type="text" name="title" placeholder="Title" required><br/>
+                    <input type="date" name="date" placeholder="Date" required><br/>
+                    <input type="time" name="start" placeholder="Time" required><br/>
+                    <p>Duration</p>
+                    <input type="number" name="hours" step="1" min="0" max="24" placeholder="Hours" required><br/>
+                    <input type="number" name="minutes" step="5" min="0" placeholder="Minutes" required><br/>
+                    <p>Max participants</p>
+                    <input type="number" name="participants" step="1" min="1" placeholder="Participants" required><br/>
+                    <input type="submit" name="submit" value="Create">
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="grid-footer">
+        <footer>
+            (c) Web Technologies 2019-2020 Tortorelli
+        </footer>
+    </div>
+
+</div>
+</body>
+
+</html>

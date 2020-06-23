@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Deleting</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/standard.css"/>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <div class="grid-header" th:with="meeting=${#session.getAttribute('meeting')}">
+        <h1 th:text="${meeting.title}">
+            Title
+        </h1>
+
+        <nav>
+            <div class="navProfile" th:with="user=${#session.getAttribute('user')}">
+                <img src="../IMAGES/user.png"/>
+                <!--/*@thymesVar id="user" type="it.polimi.tiw.beans.User"*/-->
+                <p th:text="${user.name}">Nome</p>
+                <p th:text="${user.surname}">Cognome</p>
+            </div>
+
+            <div class="navRight">
+                <a href="/GetHome">
+                    <img src="../IMAGES/home.png"/>
+                </a>
+                <a href="/Logout">
+                    <img src="../IMAGES/logout.png"/>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="grid-main">
+
+        <section class="warning">
+            <h2>Warning</h2>
+            <div th:if="${error != null}">
+                <p th:text="${error}">Messaggio</p>
+            </div>
+            <div>
+                <p>Meeting canceled</p>
+            </div>
+
+            <a href="/GetHome">
+                <input type="submit" value="Home"/>
+            </a>
+        </section>
+
+
+    </div>
+
+    <div class="grid-footer">
+        <footer>
+            (c) Web Technologies 2019-2020 Tortorelli
+        </footer>
+    </div>
+
+</div>
+</body>
+
+</html>
